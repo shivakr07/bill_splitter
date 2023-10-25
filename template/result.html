@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Bill Splitter Results</title>
+</head>
+<body>
+    <h1>Bill Splitter Results</h1>
+    <h2>Expense Summary:</h2>
+    <ul>
+        {% for transaction in transactions %}
+            <li>{{ transaction['from'] }} owes {{ transaction['amount']:.2f }} to {{ transaction['to'] }}</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>

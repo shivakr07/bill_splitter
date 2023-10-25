@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Bill Splitter</title>
+</head>
+<body>
+    <h1>Bill Splitter</h1>
+    <form method="POST">
+        <label for="total_amount">Total Amount: </label>
+        <input type="text" name="total_amount" required><br>
+
+        <label for="num_people">Number of People: </label>
+        <input type="text" name="num_people" required><br>
+
+        <h2>Enter Individual Expenses:</h2>
+        {% for i in range(num_people) %}
+            <label for="person_{{ i+1 }}">Name of Person {{ i+1 }}: </label>
+            <input type="text" name="person_{{ i+1 }}" required><br>
+            <label for="expense_{{ i+1 }}">Expenses for {{ i+1 }}: </label>
+            <input type="text" name="expense_{{ i+1 }}" required><br>
+        {% endfor %}
+
+        <input type="submit" value="Calculate">
+    </form>
+</body>
+</html>
