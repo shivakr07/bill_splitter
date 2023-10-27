@@ -39,11 +39,11 @@ def bill_splitter():
                 creditor_name = creditor["person"]
                 creditor_amount = creditor["owed_amount"]
 
-                if debtor_amount >= abs(creditor_amount):
-                    transaction_amount = abs(creditor_amount)
-                    debtor_amount -= transaction_amount
-                    creditor_amount += transaction_amount
-                    creditors.remove(creditor)
+                # if debtor_amount >= abs(creditor_amount):
+                #     transaction_amount = abs(creditor_amount)
+                #     debtor_amount -= transaction_amount
+                #     creditor_amount += transaction_amount
+                #     creditors.remove(creditor)
                 else:
                     transaction_amount = debtor_amount
                     debtor_amount = 0
