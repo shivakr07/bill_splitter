@@ -1,0 +1,27 @@
+<!-- index.html -->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Bill Splitter</title>
+</head>
+<body>
+    <h1>Bill Splitter</h1>
+    <form method="POST" action="/">
+        <label for="total_amount">Total Amount:</label>
+        <input type="number" name="total_amount" placeholder="Enter total amount" required><br>
+
+        <label for="num_people">Number of People:</label>
+        <input type="number" name="num_people" placeholder="Enter number of people" required><br>
+
+        <h2>Enter Expenses:</h2>
+        {% for person in range(num_people) %}
+            <label for="person_{{ person + 1 }}">Name of Person {{ person + 1 }}:</label>
+            <input type="text" name="person_{{ person + 1 }}" placeholder="Enter name" required><br>
+            <label for="expense_{{ person + 1 }}">Expenses for {{ person + 1 }}:</label>
+            <input type="number" name="expense_{{ person + 1 }}" placeholder="Enter expenses" required><br>
+        {% endfor %}
+
+        <button type="submit">Split Bill</button>
+    </form>
+</body>
+</html>
