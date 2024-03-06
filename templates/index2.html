@@ -11,7 +11,7 @@
       display: none;
   }
   </style>
-  <script>
+<!--   <script>
     function validateForm() {
       for (var i = 1; i <= num_people; i++) {
         var personName = document.getElementById('person_' + i).value;
@@ -23,6 +23,42 @@
       }
       return false; // prevent form submission and page reload
     
+    }
+  </script> -->
+    <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      if (localStorage.getItem('formSubmitted')) {
+        for (var i = 1; i <= num_people; i++) {
+          document.getElementById('person_' + i).value = '';
+          document.getElementById('expense_person_' + i).value = '';
+        }
+      } else {
+        for (var i = 1; i <= num_people; i++) {
+          document.getElementById('person_' + i).value = localStorage.getItem('person_' + i) || '';
+          document.getElementById('expense_person_' + i).value = localStorage.getItem('expense_person_' + i) || '';
+        }
+      }
+    });
+
+    window.addEventListener('beforeunload', function () {
+      localStorage.setItem('formSubmitted', 'true');
+      for (var i = 1; i <= num_people; i++) {
+        localStorage.setItem('person_' + i, document.getElementById('person_' + i).value);
+        localStorage.setItem('expense_person_' + i, document.getElementById('expense_person_' + i).value);
+      }
+    });
+
+    function validateForm() {
+      for (var i = 1; i <= num_people; i++) {
+        var personName = document.getElementById('person_' + i).value;
+        var expenseAmount = document.getElementById('expense_person_' + i).value;
+
+        if (personName === '' || expenseAmount === '' || isNaN(expenseAmount) || expenseAmount <= 0) {
+          alert('Please fill out all contributor fields with valid data.');
+          return false;
+        }
+      }
+      return true;
     }
   </script>
 </head>
