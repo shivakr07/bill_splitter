@@ -1,27 +1,85 @@
-<!-- index.html -->
 <!DOCTYPE html>
 <html>
-<head>
-    <title>Bill Splitter</title>
-</head>
-<body>
-    <h1>Bill Splitter</h1>
-    <form method="POST" action="/">
-        <label for="total_amount">Total Amount:</label>
-        <input type="number" name="total_amount" placeholder="Enter total amount" required><br>
+  <head>
+    <title>Group Bill Splitter</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename = 'main.css') }}" />
+    <style>
+      #contributorInputs input {
+        height: 30px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Group Bill Splitter</h1>
+    <div class="container">
+      {#
+        <label for="totalAmount">Total Amount:</label>
+      <input type="number" id="total_amount" placeholder="Enter total amount" />
 
-        <label for="num_people">Number of People:</label>
-        <input type="number" name="num_people" placeholder="Enter number of people" required><br>
+      <label for="numberOfPeople">Number of People:</label>
+      
+      <input type="number" id="num_people" placeholder="Enter number of people" />
+      #}
+      <div id="contributors">
+        <label>Contributors:</label>
 
-        <h2>Enter Expenses:</h2>
-        {% for person in range(num_people) %}
-            <label for="person_{{ person + 1 }}">Name of Person {{ person + 1 }}:</label>
-            <input type="text" name="person_{{ person + 1 }}" placeholder="Enter name" required><br>
-            <label for="expense_{{ person + 1 }}">Expenses for {{ person + 1 }}:</label>
-            <input type="number" name="expense_{{ person + 1 }}" placeholder="Enter expenses" required><br>
-        {% endfor %}
-
+        <div id="contributorInputs">
+          <div>
+            <input id="person_1" name="person_1" type="text" placeholder="Name" />
+            <input id="expense_person_1" name="expense_person_1" type="number" placeholder="Amount" />
+          </div>
+          <div>
+            <input id="person_2" name="person_2" type="text" placeholder="Name" />
+            <input id="expense_person_2" name="expense_person_2" type="number" placeholder="Amount" />
+          </div>
+          <div>
+            <input id="person_3" name="person_3" type="text" placeholder="Name" />
+            <input id="expense_person_3" name="expense_person_3" type="number" placeholder="Amount" />
+          </div>
+          
+        </div>
         <button type="submit">Split Bill</button>
-    </form>
-</body>
+      </div>
+      {#
+      <button onclick="addContributor()">Add Contributor</button>
+    </div>
+
+    <script>
+      function addContributor() {
+        var contributorInputs = document.getElementById('contributorInputs')
+        var newContributorInput = document.createElement('div')
+        newContributorInput.innerHTML = '<input type="text" name="name[]" placeholder="Name"> <input type="number" name="amount[]" placeholder="Amount">'
+        contributorInputs.appendChild(newContributorInput)
+      }
+    </script>
+    
+      
+      {% comment %} function splitBill() {
+        var totalAmount = parseFloat(document.getElementById('totalAmount').value)
+        var numberOfPeople = parseInt(document.getElementById('numberOfPeople').value)
+        var contributorInputs = document.querySelectorAll('#contributorInputs input')
+      
+        if (isNaN(totalAmount) || isNaN(numberOfPeople) || totalAmount <= 0 || numberOfPeople <= 0 || contributorInputs.length === 0) {
+          document.getElementById('results').innerHTML = 'Invalid input!'
+          return
+        }
+      
+        var totalContributors = numberOfPeople + contributorInputs.length
+        var remainingAmount = totalAmount
+      
+        for (var i = 0; i < contributorInputs.length; i += 2) {
+          var contributorName = contributorInputs[i].value.trim()
+          var contributorAmount = parseFloat(contributorInputs[i + 1].value)
+      
+          if (contributorName !== '' && !isNaN(contributorAmount) && contributorAmount >= 0) {
+            remainingAmount -= contributorAmount
+          }
+        }
+      
+        var eachPersonAmount = remainingAmount / totalContributors
+      
+        document.getElementById('results').innerHTML = 'Each person should pay: $' + eachPersonAmount.toFixed(2)
+      } {% endcomment %}
+      #}
+  </body>
 </html>

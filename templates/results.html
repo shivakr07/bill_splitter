@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Group Bill Splitter</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename = 'main.css') }}" />
+  </head>
+  <body>
+    <h1>Group Bill Splitter</h1>
+    <div class="container">
+      <h2>Transactions:</h2>
+      <ul>
+        {% for transaction in transactions %}
+          <li>{{ transaction.from }} pays {{ transaction.amount }} to {{ transaction.to }}</li>
+        {% endfor %}
+      </ul>
+    </div>
+  </body>
+</html>

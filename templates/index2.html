@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Group Bill Splitter</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}" />
+  <style>
+    #contributorInputs input {
+      height: 30px;
+    }
+    .hidden {
+      display: none;
+  }
+  </style>
+  <script>
+    function validateForm() {
+      for (var i = 1; i <= num_people; i++) {
+        var personName = document.getElementById('person_' + i).value;
+        var expenseAmount = document.getElementById('expense_person_' + i).value;
+        if (personName === "" || expenseAmount === "" || isNaN(expenseAmount) || expenseAmount <= 0) {
+          alert("Please fill out all contributor fields with valid data.");
+          return false;
+        }
+      }
+      return false; // prevent form submission and page reload
+    
+    }
+  </script>
+</head>
+<body>
+  <h1>Group Bill Splitter</h1>
+  <div class="container">
+    <form action="/submit" id= "myForm" method="post">
+      <div id="contributors">
+        <label>Contributors:</label>
+        <div id="contributorInputs">
+          <div>
+            <input id="person_1" name="person_1" type="text" placeholder="Name" />
+            <input id="expense_person_1" name="expense_person_1" type="number" placeholder="Amount" />
+          </div>
+          <div>
+            <input id="person_2" name="person_2" type="text" placeholder="Name" />
+            <input id="expense_person_2" name="expense_person_2" type="number" placeholder="Amount" />
+          </div>
+          <div>
+            <input id="person_3" name="person_3" type="text" placeholder="Name" />
+            <input id="expense_person_3" name="expense_person_3" type="number" placeholder="Amount" />
+          </div>
+        </div>
+        
+        <button type="submit" name="split_bill" onclick="return validateForm({{ num_people }})">Split Bill</button>
+        <div id="results"></div>
+      </div>
+    </form>
+  </div>
+{#  <script>
+  window.onload = function() {
+    if (document.getElementById("myForm").hasAttribute("submitted")) {
+      return; 
+    }
+
+    document.getElementById("person_1").value = "";
+    document.getElementById("person_2").value = "";
+  };
+
+  document.getElementById("myForm").onsubmit = function() {
+    return false;
+  };
+</script>
+
+#}
+  <div class="container">
+    <h2>Transactions:</h2>
+    {% if transactions %}
+        <ul id="list_items">
+            {% for transaction in transactions %}
+                <li>{{ transaction.from }} pays {{ transaction.amount }} to {{ transaction.to }}</li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No transactions available.</p>
+    {% endif %}
+  </div>
+  
+</body>
+</html>

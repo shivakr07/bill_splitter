@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Example Form</title>
+</head>
+<body>
+<form id="myForm">
+  <label for="field1">Field 1:</label>
+  <input type="text" id="field1" name="field1" placeholder="Enter value 1"><br><br>
+  <label for="field2">Field 2:</label>
+  <input type="text" id="field2" name="field2" placeholder="Enter value 2"><br><br>
+  <button type="submit">Submit</button>
+</form>
+
+<script>
+  window.onload = function() {
+    if (document.getElementById("myForm").hasAttribute("submitted")) {
+      return; 
+    }
+
+    document.getElementById("field1").value = "";
+    document.getElementById("field2").value = "";
+  };
+
+  document.getElementById("myForm").onsubmit = function() {
+    return false;
+  };
+</script>
+
+</body>
+</html>
